@@ -1,0 +1,33 @@
+spring:
+    application:
+        name: jspweb
+    profiles:
+        active: dev
+
+    # HTTP ENCODING
+    http:
+        encoding.charset: UTF-8
+        encoding.enable: true
+        encoding.force: true
+
+    #jsp“≥√Ê÷ß≥÷≈‰÷√
+    mvc:
+      view:
+        prefix: /WEB-INF/jsp/
+        suffix: .jsp
+
+server:
+  port: 8080
+  jsp-servlet:
+    init-parameters:
+      development: true
+
+  #for error page
+  error:
+    whitelabel:
+      enabled: false
+
+logging:
+    level:
+        com.dzr.web: debug
+    file: /home/wwwlogs/${spring.application.name}.log
