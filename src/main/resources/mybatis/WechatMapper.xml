@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzr.web.mapper.WechatMapper">
+    <resultMap id="BaseResultMap" type="com.dzr.web.po.Wechat">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="app_id" jdbcType="VARCHAR" property="appId"/>
+        <result column="app_secret" jdbcType="VARCHAR" property="appSecret"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="token" jdbcType="VARCHAR" property="token"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_time" jdbcType="INTEGER" property="createTime"/>
+        <result column="update_time" jdbcType="INTEGER" property="updateTime"/>
+        <result column="is_delete" jdbcType="BIT" property="isDelete"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, app_id, app_secret, name, type, token, remark, create_time, update_time, is_delete
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wechat_token
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from wechat_token
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.dzr.po.WechatToken">
+        insert into wechat_token (id, app_id, app_secret,
+        name, type, token, remark,
+        create_time, update_time, is_delete
+        )
+        values (#{id,jdbcType=INTEGER}, #{appId,jdbcType=VARCHAR}, #{appSecret,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+        #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.dzr.po.WechatToken">
+        insert into wechat_token
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="appSecret != null">
+                app_secret,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="token != null">
+                token,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="appSecret != null">
+                #{appSecret,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="token != null">
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=INTEGER},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dzr.po.WechatToken">
+        update wechat_token
+        <set>
+            <if test="appId != null">
+                app_id = #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="appSecret != null">
+                app_secret = #{appSecret,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="token != null">
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=INTEGER},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dzr.po.WechatToken">
+        update wechat_token
+        set app_id = #{appId,jdbcType=VARCHAR},
+        app_secret = #{appSecret,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        type = #{type,jdbcType=INTEGER},
+        token = #{token,jdbcType=VARCHAR},
+        remark = #{remark,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=INTEGER},
+        update_time = #{updateTime,jdbcType=INTEGER},
+        is_delete = #{isDelete,jdbcType=BIT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 获取accessToken -->
+    <select id="selectTokenByAppId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        wechat_token
+        WHERE
+        app_id = #{appId}
+        AND is_delete = 0
+        AND type = #{type}
+    </select>
+
+    <!-- 根据appid和type来更新token -->
+    <update id="updateByAppId" parameterType="com.dzr.po.WechatToken">
+        update wechat_token
+        <set>
+            <if test="token != null">
+                token = #{token},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where app_id = #{appId}
+        AND type = #{type}
+        AND token != #{token}
+        AND is_delete = 0
+    </update>
+
+</mapper>
