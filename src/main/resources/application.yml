@@ -10,7 +10,7 @@ spring:
         encoding.enable: true
         encoding.force: true
 
-    #jsp“≥√Ê÷ß≥÷≈‰÷√
+    #jsp
     mvc:
       view:
         prefix: /WEB-INF/jsp/
