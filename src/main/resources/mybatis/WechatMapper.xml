@@ -26,7 +26,7 @@
         delete from wechat_token
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.dzr.po.WechatToken">
+    <insert id="insert" parameterType="com.dzr.web.po.Wechat">
         insert into wechat_token (id, app_id, app_secret,
         name, type, token, remark,
         create_time, update_time, is_delete
@@ -36,7 +36,7 @@
         #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
         )
     </insert>
-    <insert id="insertSelective" parameterType="com.dzr.po.WechatToken">
+    <insert id="insertSelective" parameterType="com.dzr.web.po.Wechat">
         insert into wechat_token
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -103,7 +103,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.dzr.po.WechatToken">
+    <update id="updateByPrimaryKeySelective" parameterType="com.dzr.web.po.Wechat">
         update wechat_token
         <set>
             <if test="appId != null">
@@ -136,7 +136,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.dzr.po.WechatToken">
+    <update id="updateByPrimaryKey" parameterType="com.dzr.web.po.Wechat">
         update wechat_token
         set app_id = #{appId,jdbcType=VARCHAR},
         app_secret = #{appSecret,jdbcType=VARCHAR},
@@ -163,7 +163,7 @@
     </select>
 
     <!-- 根据appid和type来更新token -->
-    <update id="updateByAppId" parameterType="com.dzr.po.WechatToken">
+    <update id="updateByAppId" parameterType="com.dzr.web.po.Wechat">
         update wechat_token
         <set>
             <if test="token != null">
