@@ -99,11 +99,16 @@
             <version>1.4.7</version>
         </dependency>
 
-        <!-- json 解析-->
+        <!-- json 解析
+        在2.9.9之前的fasterxml-jackson-databind 2.x中发现了一个多态性分型问题。
+        当为外部暴露的JSON端点启用默认类型时，该服务在类路径中具有MySQL连接器Java jar（80.14或更早），
+        攻击者可以托管受害者可访问的MySQL服务器，攻击者可以发送允许其读取仲裁的精心制作的JSON消息。
+        ry服务器上的本地文件。出现这种情况是因为缺少com.mysql.cj.jdbc.admin.miniadmin验证。
+        -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.0.pr3</version>
+            <version>[2.9.9,)</version>
         </dependency>
         <dependency>
             <groupId>net.sf.json-lib</groupId>
